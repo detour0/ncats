@@ -23,8 +23,7 @@ require("lze").load({
 					python = { "ruff" },
 					-- Use a sub-list to run only the first available formatter
 					css = { "prettierd" },
-					go = { "gofmt", "goimports" },
-					html = { "htmlbeautifier" },
+					-- go = { "gofmt", "goimports" },
 					nix = { "nixfmt" },
 					javascript = { "prettierd" },
 					typescript = { "prettierd" },

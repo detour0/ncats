@@ -143,6 +143,7 @@
             ];
             # these names are arbitrary.
             lint = with pkgs; [
+              sqlfluff
             ];
             # but you can choose which ones you want
             # per nvim package you export
@@ -157,6 +158,7 @@
             ];
             # and easily check if they are included in lua
             format = with pkgs; [
+              yamlfmt
             ];
             neonixdev = {
               # also you can do this.
@@ -615,5 +617,4 @@
         inherit (utils) templates;
       }
     );
-
 }
