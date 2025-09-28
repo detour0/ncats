@@ -141,6 +141,9 @@
             python = with pkgs; [
               ruff
             ];
+            rust = with pkgs; [
+              rust-analyzer
+            ];
             # these names are arbitrary.
             lint = with pkgs; [
               sqlfluff
@@ -162,7 +165,7 @@
             ];
             neonixdev = {
               # also you can do this.
-              inherit (pkgs) nix-doc lua-language-server nixd;
+              inherit (pkgs) nix-doc statix lua-language-server nixd;
               # and each will be its own sub category
             };
           };
@@ -389,9 +392,7 @@
               # That would result in a failed build, as nixos and home manager modules validate for collisions on your path
               aliases = [
                 "vim"
-                "vimcat"
               ];
-
               # explained below in the `regularCats` package's definition
               # OR see :help nixCats.flake.outputs.settings for all of the settings available
               wrapRc = true;
@@ -409,6 +410,7 @@
               html = true;
               docker = true;
               python = true;
+              rust = true;
 
               lint = true;
               format = true;

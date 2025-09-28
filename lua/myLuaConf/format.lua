@@ -13,6 +13,15 @@ require("lze").load({
 			local conform = require("conform")
 
 			conform.setup({
+				formatters = {
+					-- goimports = {
+					-- 	command = "goimports",
+					-- 	args = { "-local", "gitlab.com/hmajid2301" },
+					-- },
+					yamlfmt = {
+						args = { "-formatter", "retain_line_breaks_single=true" },
+					},
+				},
 				formatters_by_ft = {
 					-- NOTE: download some formatters in lspsAndRuntimeDeps
 					-- and configure them here
@@ -20,15 +29,17 @@ require("lze").load({
 					-- go = { "gofmt", "golint" },
 					-- templ = { "templ" },
 					-- Conform will run multiple formatters sequentially
-					python = { "ruff" },
+					python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 					-- Use a sub-list to run only the first available formatter
 					css = { "prettierd" },
-					-- go = { "gofmt", "goimports" },
-					nix = { "nixfmt" },
+					json = { "prettierd" },
+					markdown = { "prettierd" },
 					javascript = { "prettierd" },
 					typescript = { "prettierd" },
-					sql = { "sqlfluff" },
 					yaml = { "yamlfmt" },
+					-- go = { "gofmt", "goimports" },
+					nix = { "nixfmt" },
+					sql = { "sqlfluff" },
 				},
 			})
 
