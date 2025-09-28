@@ -92,6 +92,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.g.netrw_liststyle = 0
 vim.g.netrw_banner = 0
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -110,6 +111,12 @@ vim.keymap.set("n", "<leader><leader>[", "<cmd>bprev<CR>", { desc = "Previous bu
 vim.keymap.set("n", "<leader><leader>]", "<cmd>bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<leader><leader>l", "<cmd>b#<CR>", { desc = "Last buffer" })
 vim.keymap.set("n", "<leader><leader>d", "<cmd>bdelete<CR>", { desc = "delete buffer" })
+
+-- Resize windows with arrow keys
+vim.keymap.set("n", "<Down>", ":resize +2<CR>", { desc = "Increase window height" })
+vim.keymap.set("n", "<Up>", ":resize -2<CR>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
+vim.keymap.set("n", "<Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
 
 -- see help sticky keys on windows
 vim.cmd([[command! W w]])
