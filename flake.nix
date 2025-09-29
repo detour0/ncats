@@ -147,6 +147,7 @@
             # these names are arbitrary.
             lint = with pkgs; [
               sqlfluff
+              luajitPackages.luacheck
             ];
             # but you can choose which ones you want
             # per nvim package you export
@@ -165,7 +166,12 @@
             ];
             neonixdev = {
               # also you can do this.
-              inherit (pkgs) nix-doc statix lua-language-server nixd;
+              inherit (pkgs)
+                nix-doc
+                statix
+                lua-language-server
+                nixd
+                ;
               # and each will be its own sub category
             };
           };
@@ -264,6 +270,8 @@
               always = with pkgs.vimPlugins; [
                 nvim-lspconfig
                 lualine-nvim
+                bufferline-nvim
+                # nvim-navic
                 gitsigns-nvim
                 vim-sleuth
                 vim-fugitive
@@ -429,7 +437,7 @@
               # you could also pass something else:
               # see :help nixCats
               themer = true;
-              colorscheme = "onedark";
+              colorscheme = "catppuccin-macchiato";
             };
             extra = {
               # to keep the categories table from being filled with non category things that you want to pass
@@ -468,14 +476,21 @@
             categories = {
               markdown = true;
               general = true;
-              neonixdev = true;
+
+              css = true;
+              html = true;
+              docker = true;
+              python = true;
+              rust = true;
+
               lint = true;
               format = true;
-              test = true;
-              # go = true; # <- disabled but you could enable it with override or module on install
-              lspDebugMode = false;
+              neonixdev = true;
+              test = {
+                subtest1 = true;
+              };
               themer = true;
-              colorscheme = "catppuccin";
+              colorscheme = "catppuccin-macchiato";
             };
             extra = {
               # nixCats.extra("path.to.val") will perform vim.tbl_get(nixCats.extra, "path" "to" "val")

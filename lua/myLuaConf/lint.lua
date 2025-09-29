@@ -12,8 +12,6 @@ require("lze").load({
 				-- NOTE: download some linters in lspsAndRuntimeDeps
 				-- and configure them here
 				-- markdown = {'vale',},
-				-- javascript = { 'eslint' },
-				-- typescript = { 'eslint' },
 				docker = { "hadolint" },
 				-- go = { "golangcilint" },
 				html = { "htmlhint" },
