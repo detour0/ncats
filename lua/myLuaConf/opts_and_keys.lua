@@ -1,6 +1,8 @@
+local v = vim
+
 -- NOTE: These 2 need to be set up before any plugins are loaded.
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+v.g.mapleader = " "
+v.g.maplocalleader = " "
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -9,37 +11,44 @@ vim.g.maplocalleader = " "
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
-vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+v.opt.list = true
+v.opt.listchars = {
+  trail = "￮",
+  -- multispace = "￮", -- shows symbol in tab indentation at start of line
+  extends = "▶",
+  precedes = "◀",
+  nbsp =
+  "‿"
+}
 
 -- Search
-vim.opt.ignorecase = true -- search case insensitive
-vim.opt.smartcase = true -- search matters if capital letter
-vim.opt.inccommand = "split" -- splits screen to show all matches
-vim.opt.incsearch = true -- Show search matches as you type
-vim.opt.hlsearch = true -- Highlight all search matches
+v.opt.ignorecase = true    -- search case insensitive
+v.opt.smartcase = true     -- search matters if capital letter
+v.opt.inccommand = "split" -- splits screen to show all matches
+v.opt.incsearch = true     -- Show search matches as you type
+v.opt.hlsearch = true      -- Highlight all search matches
 
 -- Tabs/Indents
-vim.opt.expandtab = true -- Convert tabs to spaces
-vim.opt.tabstop = 2 -- Number of spaces that a tab represents
-vim.opt.softtabstop = 2 -- Number of spaces for tab operations (editing)
-vim.opt.shiftwidth = 2 -- Number of spaces for each indentation level
-vim.opt.smartindent = true -- auto-indent based on syntax of the code
+v.opt.expandtab = true   -- Convert tabs to spaces
+v.opt.tabstop = 2        -- Number of spaces that a tab represents
+v.opt.softtabstop = 2    -- Number of spaces for tab operations (editing)
+v.opt.shiftwidth = 2     -- Number of spaces for each indentation level
+v.opt.smartindent = true -- auto-indent based on syntax of the code
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+v.opt.scrolloff = 10
 -- Don't redraw screen while executing macros (improves performance)
-vim.opt.lazyredraw = true
+v.opt.lazyredraw = true
 -- Make line numbers default
-vim.wo.number = true
+v.wo.number = true
 
 -- Enable mouse mode
-vim.o.mouse = "a"
+v.o.mouse = "a"
 
 -- Indent
 -- vim.o.smarttab = true
-vim.opt.cpoptions:append("I")
-vim.o.expandtab = true
+v.opt.cpoptions:append("I")
+v.o.expandtab = true
 -- vim.o.smartindent = true
 -- vim.o.autoindent = true
 -- vim.o.tabstop = 4
@@ -47,92 +56,92 @@ vim.o.expandtab = true
 -- vim.o.shiftwidth = 4
 
 -- stops line wrapping from being confusing
-vim.o.breakindent = true
+v.o.breakindent = true
 
 -- Save undo history
-vim.o.undofile = true
+v.o.undofile = true
 
 -- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
+v.o.ignorecase = true
+v.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = "yes"
-vim.wo.relativenumber = true
+v.wo.signcolumn = "yes"
+v.wo.relativenumber = true
 
 -- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+v.o.updatetime = 250
+v.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = "menu,preview,noselect"
+v.o.completeopt = "menu,preview,noselect"
 
 -- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
+v.o.termguicolors = true
 
 -- [[ Disable auto comment on enter ]]
 -- See :help formatoptions
-vim.api.nvim_create_autocmd("FileType", {
-	desc = "remove formatoptions",
-	callback = function()
-		vim.opt.formatoptions:remove({ "c", "r", "o" })
-	end,
+v.api.nvim_create_autocmd("FileType", {
+  desc = "remove formatoptions",
+  callback = function()
+    v.opt.formatoptions:remove({ "c", "r", "o" })
+  end,
 })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
-vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = "*",
+local highlight_group = v.api.nvim_create_augroup("YankHighlight", { clear = true })
+v.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    v.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = "*",
 })
 
-vim.g.netrw_liststyle = 0
-vim.g.netrw_banner = 0
+v.g.netrw_liststyle = 0
+v.g.netrw_banner = 0
 
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 -- remove highlighting when exit search
-vim.keymap.set("n", "<Esc>", "<Esc>:noh<CR>")
+v.keymap.set("n", "<Esc>", "<Esc>:noh<CR>")
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
-vim.keymap.set("n", "n", "nzzzv", { desc = "Next Search Result" })
-vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous Search Result" })
+v.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
+v.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
+v.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
+v.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
+v.keymap.set("n", "n", "nzzzv", { desc = "Next Search Result" })
+v.keymap.set("n", "N", "Nzzzv", { desc = "Previous Search Result" })
 
-vim.keymap.set("n", "<leader><leader>[", "<cmd>bprev<CR>", { desc = "Previous buffer" })
-vim.keymap.set("n", "<leader><leader>]", "<cmd>bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<leader><leader>l", "<cmd>b#<CR>", { desc = "Last buffer" })
-vim.keymap.set("n", "<leader><leader>d", "<cmd>bdelete<CR>", { desc = "delete buffer" })
+v.keymap.set("n", "<leader><leader>[", "<cmd>bprev<CR>", { desc = "Previous buffer" })
+v.keymap.set("n", "<leader><leader>]", "<cmd>bnext<CR>", { desc = "Next buffer" })
+v.keymap.set("n", "<leader><leader>l", "<cmd>b#<CR>", { desc = "Last buffer" })
+v.keymap.set("n", "<leader><leader>x", "<cmd>bdelete<CR>", { desc = "delete buffer" })
+v.keymap.set("n", "<leader><leader>s", "<cmd>w<CR>", { desc = "delete buffer" })
 
 -- Resize windows with arrow keys
-vim.keymap.set("n", "<Down>", ":resize +2<CR>", { desc = "Increase window height" })
-vim.keymap.set("n", "<Up>", ":resize -2<CR>", { desc = "Decrease window height" })
-vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
-vim.keymap.set("n", "<Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
+v.keymap.set("n", "<Down>", ":resize +2<CR>", { desc = "Increase window height" })
+v.keymap.set("n", "<Up>", ":resize -2<CR>", { desc = "Decrease window height" })
+v.keymap.set("n", "<Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
+v.keymap.set("n", "<Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
 
 -- see help sticky keys on windows
-vim.cmd([[command! W w]])
-vim.cmd([[command! Wq wq]])
-vim.cmd([[command! WQ wq]])
-vim.cmd([[command! Q q]])
+v.cmd([[command! W w]])
+v.cmd([[command! Wq wq]])
+v.cmd([[command! WQ wq]])
+v.cmd([[command! Q q]])
 
 -- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+v.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+v.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+v.diagnostic.config({ jump = { float = true }, underline = true})
+v.keymap.set("n", "<leader>e", v.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+v.keymap.set("n", "<leader>q", v.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- kickstart.nvim starts you with this.
 -- But it constantly clobbers your system clipboard whenever you delete anything.
@@ -143,24 +152,24 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- vim.o.clipboard = 'unnamedplus'
 
 -- You should instead use these keybindings so that they are still easy to use, but dont conflict
-vim.keymap.set({ "v", "x", "n" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "Yank to clipboard" })
-vim.keymap.set(
-	{ "n", "v", "x" },
-	"<leader>Y",
-	'"+yy',
-	{ noremap = true, silent = true, desc = "Yank line to clipboard" }
+v.keymap.set({ "v", "x", "n" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "Yank to clipboard" })
+v.keymap.set(
+  { "n", "v", "x" },
+  "<leader>Y",
+  '"+yy',
+  { noremap = true, silent = true, desc = "Yank line to clipboard" }
 )
-vim.keymap.set({ "n", "v", "x" }, "<C-a>", "gg0vG$", { noremap = true, silent = true, desc = "Select all" })
-vim.keymap.set({ "n", "v", "x" }, "<leader>p", '"+p', { noremap = true, silent = true, desc = "Paste from clipboard" })
-vim.keymap.set(
-	"i",
-	"<C-p>",
-	"<C-r><C-p>+",
-	{ noremap = true, silent = true, desc = "Paste from clipboard from within insert mode" }
+v.keymap.set({ "n", "v", "x" }, "<C-a>", "gg0vG$", { noremap = true, silent = true, desc = "Select all" })
+v.keymap.set({ "n", "v", "x" }, "<leader>p", '"+p', { noremap = true, silent = true, desc = "Paste from clipboard" })
+v.keymap.set(
+  "i",
+  "<C-p>",
+  "<C-r><C-p>+",
+  { noremap = true, silent = true, desc = "Paste from clipboard from within insert mode" }
 )
-vim.keymap.set(
-	"x",
-	"<leader>P",
-	'"_dP',
-	{ noremap = true, silent = true, desc = "Paste over selection without erasing unnamed register" }
+v.keymap.set(
+  "x",
+  "<leader>P",
+  '"_dP',
+  { noremap = true, silent = true, desc = "Paste over selection without erasing unnamed register" }
 )

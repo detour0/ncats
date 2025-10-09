@@ -20,7 +20,7 @@ return {
     bufferline.setup({
       options = {
         -- mode = "tabs",
-        separator_style = "slope",
+        separator_style = "slant",
         -- style_preset = bufferline.style_preset.minimal,
         show_buffer_close_icons = true,
         show_close_icon = false,

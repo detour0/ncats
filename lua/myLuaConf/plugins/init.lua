@@ -112,7 +112,14 @@ require('lze').load {
     for_cat = 'general.extra',
     event = "DeferredUIEnter",
     after = function(plugin)
-      require("ibl").setup()
+      require("ibl").setup(
+        {
+          debounce = 200,
+          indent = { char = "▏" },
+          -- whitespace = { highlight = { "Whitespace", "NonText" } },
+          scope = { enabled = true, show_exact_scope = true },
+        }
+      )
     end,
   },
   {
