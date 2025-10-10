@@ -146,6 +146,7 @@
             ];
             # these names are arbitrary.
             lint = with pkgs; [
+              eslint_d
               sqlfluff
               luajitPackages.luacheck
             ];

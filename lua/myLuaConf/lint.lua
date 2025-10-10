@@ -8,7 +8,9 @@ require("lze").load({
     -- keys = "",
     -- colorscheme = "",
     after = function(plugin)
-      require("lint").linters_by_ft = {
+      local lint = require("lint")
+
+      lint.linters_by_ft = {
         -- NOTE: download some linters in lspsAndRuntimeDeps
         -- and configure them here
         -- markdown = {'vale',},
@@ -17,17 +19,20 @@ require("lze").load({
         html = { "htmlhint" },
         lua = { "luacheck" },
         nix = { "statix" },
-        javascript = { "eslint" },
-        typescript = { "eslint" },
-        python = { "ruff_check" },
+        javascript = { "eslint_d" },
+        typescript = { "eslint_d" },
+        python = { "ruff" },
         sql = { "sqlfluff" },
       }
 
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         callback = function()
-          require("lint").try_lint()
+          lint.try_lint()
         end,
       })
+      vim.keymap.set("n", "<leader>L", function()
+        lint.try_lint()
+      end, { desc = "[L]int current file" })
     end,
   },
 })
