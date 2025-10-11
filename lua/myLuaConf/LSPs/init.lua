@@ -9,7 +9,9 @@ end
 -- nixCats gives us the paths, which is faster than searching the rtp!
 local old_ft_fallback = require('lze').h.lsp.get_ft_fallback()
 require('lze').h.lsp.set_ft_fallback(function(name)
-  local lspcfg = nixCats.pawsible({ "allPlugins", "opt", "nvim-lspconfig" }) or nixCats.pawsible({ "allPlugins", "start", "nvim-lspconfig" })
+  local lspcfg = nixCats.pawsible({ "allPlugins", "opt", "nvim-lspconfig" }) or
+      nixCats.pawsible({ "allPlugins", "start", "nvim-lspconfig" })
+
   if lspcfg then
     local ok, cfg = pcall(dofile, lspcfg .. "/lsp/" .. name .. ".lua")
     if not ok then
@@ -64,6 +66,98 @@ require('lze').load {
         },
       })
     end,
+  },
+  {
+    "pyright",
+    enabled = nixCats('python') or false, -- Enable if python category is set in nixCats
+    lsp = {
+      filetypes = { "python" },
+      settings = {
+        python = {
+          analysis = {
+            -- typeCheckingMode = "basic",  -- Options: "off", "basic", "strict"
+            -- These settings help avoid conflicts with ruff
+            -- diagnosticSeverityOverrides = {
+            --   reportUnusedImport = "none",  -- Let ruff handle unused imports
+            --   reportUnusedVariable = "none",  -- Let ruff handle unused variables
+            -- },
+          },
+          -- Disable Pyright's formatting to use ruff instead
+          formatting = {
+            provider = "none",
+          },
+        },
+      },
+    },
+  },
+  {
+    "rust_analyzer",
+    enabled = nixCats('rust') or false,
+    lsp = {
+      filetypes = { 'rust' },
+    },
+  },
+  {
+    "ts_ls",
+    enabled = nixCats('javascript') or nixCats('typescript') or false,
+    lsp = {
+    },
+  },
+  {
+    "html",
+    enabled = nixCats('html') or nixCats('javascript') or nixCats('typescript') or false,
+    lsp = {
+      filetypes = { 'html', 'templ' },
+      settings = {
+        html = {
+          format = {
+            enable = false, -- use prettier instead
+          },
+        },
+      },
+    },
+  },
+  -- {
+  --   "htmx",
+  --   enabled = nixCats('html') or nixCats('javascript') or nixCats('typescript') or false,
+  --   lsp = {},
+  -- },
+  {
+    "cssls",
+    enabled = nixCats('css') or nixCats('javascript') or nixCats('typescript') or false,
+    lsp = {},
+  },
+  {
+    "jsonls",
+    enabled = nixCats('json') or false,
+    lsp = {},
+  },
+  {
+    "yamlls",
+    enabled = nixCats('yaml') or false,
+    lsp = {
+      settings = {
+        yaml = {
+          format = {
+            enable = false, -- use yamlfmt instead
+          },
+        },
+      },
+    },
+  },
+  {
+    "sqlls",
+    enabled = nixCats('sql') or false,
+    lsp = {
+      filetypes = { "sql", "mysql" },
+    },
+  },
+  {
+    "dockerls",
+    enabled = nixCats('docker') or false,
+    lsp = {
+      filetypes = { "dockerfile" },
+    },
   },
   {
     -- name of the lsp

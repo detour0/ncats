@@ -17,6 +17,7 @@ if ok then
   vim.notify = notify
   vim.keymap.set("n", "<Esc>", function()
     notify.dismiss({ silent = true, })
+    vim.cmd("nohlsearch") -- clears search highlights
   end, { desc = "dismiss notify popup and clear hlsearch" })
 end
 

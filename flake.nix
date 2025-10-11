@@ -127,6 +127,7 @@
               stylelint
               prettierd
               tailwindcss-language-server
+              vscode-langservers-extracted
             ];
             docker = with pkgs; [
               dockerfile-language-server
@@ -138,16 +139,37 @@
               htmx-lsp
               vscode-langservers-extracted
             ];
+            json = with pkgs; [
+              vscode-langservers-extracted
+              prettierd
+            ];
+            yaml = with pkgs; [
+              yaml-language-server
+              yamlfmt
+            ];
+            sql = with pkgs; [
+              sqlfluff
+            ];
             python = with pkgs; [
+              pyright
               ruff
             ];
             rust = with pkgs; [
               rust-analyzer
             ];
+            javascript = with pkgs; [
+              eslint_d
+              typescript-language-server
+              typescript
+            ];
+            typescript = with pkgs; [
+              typescript-language-server
+              typescript
+              eslint_d
+            ];
+
             # these names are arbitrary.
             lint = with pkgs; [
-              eslint_d
-              sqlfluff
               luajitPackages.luacheck
             ];
             # but you can choose which ones you want
@@ -417,9 +439,14 @@
 
               css = true;
               html = true;
+              yaml = true;
+              json = true;
               docker = true;
+              sql = true;
               python = true;
               rust = true;
+              javascript = true;
+              typescript = true;
 
               lint = true;
               format = true;

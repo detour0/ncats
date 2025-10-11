@@ -106,9 +106,6 @@ v.g.netrw_banner = 0
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
--- remove highlighting when exit search
-v.keymap.set("n", "<Esc>", "<Esc>:noh<CR>")
-
 v.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
 v.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
 v.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
@@ -139,7 +136,7 @@ v.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true
 v.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
-v.diagnostic.config({ jump = { float = true }, underline = true})
+v.diagnostic.config({ jump = { float = true }, underline = true })
 v.keymap.set("n", "<leader>e", v.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 v.keymap.set("n", "<leader>q", v.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
